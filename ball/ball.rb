@@ -1,6 +1,7 @@
 require "dxopal"
 include DXOpal
 
+# ゲームの世界
 class World
   @balls = []
   @player = nil
@@ -16,6 +17,7 @@ class World
     @out = false
   end
 
+  # ゲーム内容の初期化
   def start
     @balls = []
     @balls << Ball.new(@width, @height,rand(@width),20, 10, 0)
@@ -26,30 +28,43 @@ class World
     @out = true
   end
 
+  # 1フレームごとに実行したい動作
   def update
     if !@out
       return
     end
+
+    # キー入力制御
     if Input.key_down?(K_LEFT)
       @player.dx(-2)
     end
     if Input.key_down?(K_RIGHT)
       @player.dx(2)
     end
+
+    # @ballsのすべての実行
     Sprite.update(@balls)
+    # @player単体で実行
     @player.update()
+
+    # 衝突確認
     if @player.check(@balls).length > 0
       @out = false
     end
   end
 
+  # 1フレームごとに描画したい動作
   def draw
+    # @ballsのすべてを描画
     Sprite.draw(@balls)
+    # @player単体で描画
     @player.draw()
   end
 end
 
+# プレーヤーの定義
 class Player < Sprite
+  # Playerの描画したいもの
   @@image = Image.new(30, 30, C_BLUE)
   @dx = 0
   @width = 0
@@ -63,6 +78,7 @@ class Player < Sprite
     @width = max_x
   end
 
+  # Playerの1フレームごとに実行したい内容
   def update
     self.x += @dx
     if self.x > @width
@@ -80,7 +96,9 @@ class Player < Sprite
   end
 end
 
+# ボールの定義
 class Ball < Sprite
+  # Ballの描画したいもの
   @@image = Image.new(30, 30, C_RED)
 
   @dx = 0
@@ -97,6 +115,7 @@ class Ball < Sprite
     @height = height - @@image.height
   end
 
+  # Ballの1フレームごとに実行したい内容
   def update
     self.x += @dx
     self.y += @dy

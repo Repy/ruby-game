@@ -1,6 +1,7 @@
 require "dxopal"
 include DXOpal
 
+# ゲームの世界
 class World
   @balls = []
   @player = nil
@@ -17,6 +18,7 @@ class World
     @out = false
   end
 
+  # ゲーム内容の初期化
   def start
     @balls = []
     @player = Player.new(@width, @height)
@@ -24,35 +26,48 @@ class World
     @count = 0
   end
 
+  # 1フレームごとに実行したい動作
   def update
     if !@out
       return
     end
-    @count += 1
-    @count = @count % 45
+
+    # 新規ボール出現
+    @count = (@count + 1) % 45
     if @count == 0
       @balls << Ball.new(@width, @height, @width, rand(@height), -1, rand(-10..10)/10)
     end
 
-
+    # キー入力制御
     if Input.key_down?(K_UP)
       @player.dy(-1)
     end
+
+    # @ballsのすべての実行
     Sprite.update(@balls)
+    # @ballsで無効化されているものを削除
     Sprite.clean(@balls)
+    # @player単体で実行
     @player.update()
+
+    # 衝突確認
     if @player.check(@balls).length > 0
       @out = false
     end
   end
 
+  # 1フレームごとに描画したい動作
   def draw
+    # @ballsのすべてを描画
     Sprite.draw(@balls)
+    # @player単体で描画
     @player.draw()
   end
 end
 
+# プレーヤーの定義
 class Player < Sprite
+  # Playerの描画したいもの
   @@image = Image.new(30, 30, C_BLUE)
   @dy = 0
   @height = 0
@@ -65,6 +80,7 @@ class Player < Sprite
     @height = max_y
   end
 
+  # Playerの1フレームごとに実行したい内容
   def update
     self.y += @dy
     @dy = @dy + 0.3
@@ -85,7 +101,9 @@ class Player < Sprite
   end
 end
 
+# ボールの定義
 class Ball < Sprite
+  # Ballの描画したいもの
   @@image = Image.new(30, 30, C_RED)
 
   @dx = 0
@@ -102,6 +120,7 @@ class Ball < Sprite
     @height = height - @@image.height
   end
 
+  # Ballの1フレームごとに実行したい内容
   def update
     self.x += @dx
     self.y += @dy
