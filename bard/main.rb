@@ -2,6 +2,7 @@ require "dxopal"
 include DXOpal
 require_remote "ball.rb?#{Time.now}"
 
+Window.fps = 45
 Window.load_resources do
   Window.bgcolor = C_BLACK
   world = World.new()
