@@ -1,6 +1,6 @@
 require "dxopal"
 include DXOpal
-require_remote "ball.rb?#{Time.now}"
+require_remote "ball.rb"
 
 Window.fps = 45
 Window.load_resources do

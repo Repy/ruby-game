@@ -9,6 +9,7 @@ class World
   @height = 400
   @out = false
   @count = 0
+  @level = 45
 
   def initialize
     @balls = []
@@ -19,11 +20,13 @@ class World
   end
 
   # ゲーム内容の初期化
-  def start
+  def start(level)
     @balls = []
     @player = Player.new(@width, @height)
     @out = true
     @count = 0
+    level = %x{new URL(location.href).searchParams.get('level') || "45"}
+    @level = level.to_i
   end
 
   # 1フレームごとに実行したい動作
@@ -33,7 +36,7 @@ class World
     end
 
     # 新規ボール出現
-    @count = (@count + 1) % 45
+    @count = (@count + 1) % @level
     if @count == 0
       @balls << Ball.new(@width, @height, @width, rand(@height), -1, rand(-10..10)/10)
     end
