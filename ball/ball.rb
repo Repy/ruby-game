@@ -1,5 +1,9 @@
-require "dxopal"
-include DXOpal
+if RUBY_PLATFORM == "opal"
+  require "dxopal"
+  include DXOpal
+else
+  require "./3.3/dxruby.so"
+end
 
 # ゲームの世界
 class World
