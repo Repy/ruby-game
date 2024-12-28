@@ -2,7 +2,7 @@ if RUBY_PLATFORM == "opal"
   require "dxopal"
   include DXOpal
   require_remote "ball.rb"
-else RUBY_PLATFORM == "x64-mingw-ucrt"
+else
   require "./3.3/dxruby.so"
   require "./ball"
 end
