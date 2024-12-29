@@ -8,7 +8,7 @@ end
 # プレーヤーの定義
 class Player < Sprite
   # Playerの描画したいもの
-  @@image = Image.new(30, 30, C_BLUE)
+  @@image = Image.new(30, 30, C_RED)
   attr_accessor :dy
   @dy = 0
   attr_accessor :dx
@@ -59,27 +59,35 @@ class Player < Sprite
   def shot_y(o)
     # 落下中に当たった
     if @dy > 0
-      @dy = 0
-      self.y = o.y - $SIZE
-      @floor = true
+      if o.action(Direction::DOWN) == BlockAction::PUSHBACK
+        @dy = 0
+        self.y = o.y - $SIZE
+        @floor = true
+      end
     end
     # 上昇中に当たった
     if @dy < 0
-      @dy = 0
-      self.y = o.y + $SIZE
+      if o.action(Direction::UP) == BlockAction::PUSHBACK
+        @dy = 0
+        self.y = o.y + $SIZE
+      end
     end
   end
 
   def shot_x(o)
     # 右移動で当たった
     if @dx > 0
-      @dx = 0
-      self.x = o.x - $SIZE
+      if o.action(Direction::RIGHT) == BlockAction::PUSHBACK
+        @dx = 0
+        self.x = o.x - $SIZE
+      end
     end
     # 左移動で当たった
     if @dx < 0
-      @dx = 0
-      self.x = o.x + $SIZE
+      if o.action(Direction::LEFT) == BlockAction::PUSHBACK
+        @dx = 0
+        self.x = o.x + $SIZE
+      end
     end
   end
 

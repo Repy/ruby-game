@@ -23,8 +23,11 @@ class World
     @floor = []
     for y in 0 ... $MAP.length do
       for x in 0 ... $MAP.length do
-        if $MAP[y][x] == 1
-          @floor.append(Floor.new(x*$SIZE, y*$SIZE))
+        case $MAP[y][x]
+        when 1
+          @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PUSHBACK_FLOOR))
+        when 2
+          @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PASSAGE_FLOOR))
         end
       end
     end
@@ -43,8 +46,8 @@ class World
     # 衝突確認
     Sprite.check(@player, @floor, shot=:shot_y)
     # 接地中のみジャンプ
-    if @player.floor and Input.key_down?(K_UP)
-      @player.dy = -10
+    if @player.floor and Input.key_down?(K_SPACE)
+      @player.dy = -12
     end
 
   end
