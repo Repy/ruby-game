@@ -1,6 +1,8 @@
 class BlockAction
   PUSHBACK = 1
   PASSAGE = 2
+  DEAD = 3
+  BOUND = 4
 end
 
 class Direction

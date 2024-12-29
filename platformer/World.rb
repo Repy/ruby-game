@@ -7,6 +7,7 @@ else
   require "./3.3/dxruby.so"
   require "./Floor"
   require "./Player"
+  require "./Kuri"
 end
 
 
@@ -28,6 +29,8 @@ class World
           @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PUSHBACK_FLOOR))
         when 2
           @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PASSAGE_FLOOR))
+        when 3
+          @floor.append(Kuri.new(x*$SIZE, y*$SIZE))
         end
       end
     end
@@ -50,6 +53,8 @@ class World
       @player.dy = -12
     end
 
+    # @floorのすべてをupdate
+    Sprite.update(@floor)
   end
 
   # 1フレームごとに描画したい動作

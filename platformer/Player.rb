@@ -9,6 +9,7 @@ end
 class Player < Sprite
   # Playerの描画したいもの
   @@image = Image.new(30, 30, C_RED)
+  @@dead = Image.new(30, 30, C_WHITE)
   attr_accessor :dy
   @dy = 0
   attr_accessor :dx
@@ -57,17 +58,28 @@ class Player < Sprite
   end
 
   def shot_y(o)
-    # 落下中に当たった
-    if @dy > 0
-      if o.action(Direction::DOWN) == BlockAction::PUSHBACK
+    # 落下中に当たった かつ 前回の位置がブロックより上
+    if @dy > 0 and self.y + $SIZE - @dy.to_i() <= o.y
+      action = o.action(Direction::DOWN)
+      if action == BlockAction::DEAD
+        self.image = @@dead
+      end
+      if action == BlockAction::PUSHBACK
         @dy = 0
         self.y = o.y - $SIZE
         @floor = true
       end
-    end
-    # 上昇中に当たった
-    if @dy < 0
-      if o.action(Direction::UP) == BlockAction::PUSHBACK
+      if action == BlockAction::BOUND
+        @dy = -5
+        self.y = o.y - $SIZE
+        @floor = true
+      end
+    elsif @dy < 0 # 上昇中に当たった
+      action = o.action(Direction::UP)
+      if action == BlockAction::DEAD
+        self.image = @@dead
+      end
+      if action == BlockAction::PUSHBACK
         @dy = 0
         self.y = o.y + $SIZE
       end
@@ -77,14 +89,22 @@ class Player < Sprite
   def shot_x(o)
     # 右移動で当たった
     if @dx > 0
-      if o.action(Direction::RIGHT) == BlockAction::PUSHBACK
+      action = o.action(Direction::RIGHT)
+      if action == BlockAction::DEAD
+        self.image = @@dead
+      end
+      if action == BlockAction::PUSHBACK
         @dx = 0
         self.x = o.x - $SIZE
       end
     end
     # 左移動で当たった
     if @dx < 0
-      if o.action(Direction::LEFT) == BlockAction::PUSHBACK
+      action = o.action(Direction::LEFT)
+      if action == BlockAction::DEAD
+        self.image = @@dead
+      end
+      if action == BlockAction::PUSHBACK
         @dx = 0
         self.x = o.x + $SIZE
       end
