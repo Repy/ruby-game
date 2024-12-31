@@ -58,6 +58,10 @@ class Player < Sprite
   end
 
   def shot_y(o)
+    if not self.check(o)
+      puts "Player shot_y not check ${self.x,self.y}"
+      return
+    end
     # 落下中に当たった かつ 前回の位置がブロックより上
     if @dy > 0 and self.y + $SIZE - @dy.to_i() <= o.y
       action = o.action(Direction::DOWN)
@@ -71,7 +75,7 @@ class Player < Sprite
       end
       if action == BlockAction::BOUND
         @dy = -5
-        self.y = o.y - $SIZE
+        self.y = o.y - $SIZE - 5
         @floor = true
       end
     elsif @dy < 0 # 上昇中に当たった
@@ -87,6 +91,9 @@ class Player < Sprite
   end
 
   def shot_x(o)
+    if not self.check(o)
+      return
+    end
     # 右移動で当たった
     if @dx > 0
       action = o.action(Direction::RIGHT)

@@ -28,7 +28,7 @@ class World
   def start()
     @floor = []
     for y in 0 ... $MAP.length do
-      for x in 0 ... $MAP.length do
+      for x in 0 ... $MAP[0].length do
         case $MAP[y][x]
         when 1
           @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PUSHBACK_FLOOR))
@@ -74,6 +74,7 @@ class World
 
   # 1フレームごとに描画したい動作
   def draw
+    Window.ox = @player.x - 10 * $SIZE
     # @floorのすべてを描画
     Sprite.draw(@floor)
     # @enemyのすべてを描画
