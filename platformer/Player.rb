@@ -25,7 +25,7 @@ class Player < Sprite
 
   def update_y()
     @floor = false
-    @dy = @dy + 0.5
+    @dy = @dy + 0.7
     if @dy > $SIZE
       @dy = $SIZE
     end

@@ -14,9 +14,14 @@ end
 # ゲームの世界
 class World
 
+  @floor = []
+  @player = Player.new(0, 0)
+  @enemy = []
+
   def initialize()
     @floor = []
     @player = Player.new(0, 0)
+    @enemy = []
   end
 
   # ゲーム内容の初期化
@@ -30,7 +35,7 @@ class World
         when 2
           @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PASSAGE_FLOOR))
         when 3
-          @floor.append(Kuri.new(x*$SIZE, y*$SIZE))
+          @enemy.append(Kuri.new(x*$SIZE, y*$SIZE))
         end
       end
     end
@@ -43,24 +48,36 @@ class World
     @player.update_x()
     # 衝突確認
     Sprite.check(@player, @floor, shot=:shot_x)
+    Sprite.check(@player, @enemy, shot=:shot_x)
 
     # 上下移動
     @player.update_y()
     # 衝突確認
     Sprite.check(@player, @floor, shot=:shot_y)
+    Sprite.check(@player, @enemy, shot=:shot_y)
     # 接地中のみジャンプ
     if @player.floor and Input.key_down?(K_SPACE)
-      @player.dy = -12
+      @player.dy = -14
     end
 
-    # @floorのすべてをupdate
-    Sprite.update(@floor)
+    # @enemyのすべてをupdate
+    for e in @enemy do
+      e.update_y()
+    end
+    Sprite.check(@enemy, @floor, shot=:shot_y)
+    for e in @enemy do
+      e.update_x()
+    end
+    Sprite.check(@enemy, @floor, shot=:shot_x)
+
   end
 
   # 1フレームごとに描画したい動作
   def draw
     # @floorのすべてを描画
     Sprite.draw(@floor)
+    # @enemyのすべてを描画
+    Sprite.draw(@enemy)
     # @player単体で描画
     @player.draw()
   end
