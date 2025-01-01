@@ -2,4 +2,10 @@
 
 source "https://rubygems.org"
 
-# gem "rails"
+gem "rdbg"
+gem "rubocop"
+gem "ruby-lsp"
+
+source "https://repy.github.io/ruby-dxruby-binary" do
+  gem "dxruby"
+end

@@ -2,7 +2,7 @@ if RUBY_PLATFORM == "opal"
   require "dxopal"
   include DXOpal
 else
-  require "./3.3/dxruby.so"
+  require "dxruby"
 end
 
 # 床の定義

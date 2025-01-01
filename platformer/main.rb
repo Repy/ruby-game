@@ -4,9 +4,9 @@ if RUBY_PLATFORM == "opal"
   require_remote "./config.rb"
   require_remote "./World.rb"
 else
-  require "./3.3/dxruby.so"
-  require "./config"
-  require "./World"
+  require "dxruby"
+  require_relative "./config"
+  require_relative "./World"
 end
 
 Window.fps = 45
@@ -17,7 +17,7 @@ world = World.new()
 world.start()
 Window.loop do
   if Input.key_push?(K_SPACE)
-world.start()
+    world.start()
   end
   world.update()
   world.draw()
