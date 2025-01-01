@@ -16,7 +16,7 @@ Window.bgcolor = C_BLACK
 world = World.new()
 world.start()
 Window.loop do
-  if Input.key_push?(K_SPACE)
+  if Input.key_push?(K_RETURN)
     world.start()
   end
   world.update()

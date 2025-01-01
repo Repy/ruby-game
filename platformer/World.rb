@@ -4,24 +4,38 @@ if RUBY_PLATFORM == 'opal'
   require_remote './Floor.rb'
   require_remote './Player.rb'
 else
-  require 'dxruby'
-  require_relative './Floor'
-  require_relative './Player'
+  require "dxruby"
+  require_relative "./Floor"
+  require_relative "./Player"
+  require_relative "./Kuri"
 end
 
 # ゲームの世界
 class World
-  def initialize
+
+  @floor = []
+  @player = Player.new(0, 0)
+  @enemy = []
+
+  def initialize()
     @floor = []
     @player = Player.new(0, 0)
+    @enemy = []
   end
 
   # ゲーム内容の初期化
   def start
     @floor = []
-    for y in 0...$MAP.length do
-      for x in 0...$MAP.length do
-        @floor.append(Floor.new(x * $SIZE, y * $SIZE)) if $MAP[y][x] == 1
+    for y in 0 ... $MAP.length do
+      for x in 0 ... $MAP[0].length do
+        case $MAP[y][x]
+        when 1
+          @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PUSHBACK_FLOOR))
+        when 2
+          @floor.append(Floor.new(x*$SIZE, y*$SIZE, FloorType::PASSAGE_FLOOR))
+        when 3
+          @enemy.append(Kuri.new(x*$SIZE, y*$SIZE))
+        end
       end
     end
     @player = Player.new($SIZE, $SIZE)
@@ -32,22 +46,38 @@ class World
     # 左右移動
     @player.update_x
     # 衝突確認
-    Sprite.check(@player, @floor, shot = :shot_x)
+    Sprite.check(@player, @floor, shot=:shot_x)
+    Sprite.check(@player, @enemy, shot=:shot_x)
 
     # 上下移動
     @player.update_y
     # 衝突確認
-    Sprite.check(@player, @floor, shot = :shot_y)
+    Sprite.check(@player, @floor, shot=:shot_y)
+    Sprite.check(@player, @enemy, shot=:shot_y)
     # 接地中のみジャンプ
-    return unless @player.floor and Input.key_down?(K_UP)
+    if @player.floor and Input.key_down?(K_SPACE)
+      @player.dy = -14
+    end
 
-    @player.dy = -10
+    # @enemyのすべてをupdate
+    for e in @enemy do
+      e.update_y()
+    end
+    Sprite.check(@enemy, @floor, shot=:shot_y)
+    for e in @enemy do
+      e.update_x()
+    end
+    Sprite.check(@enemy, @floor, shot=:shot_x)
+
   end
 
   # 1フレームごとに描画したい動作
   def draw
+    Window.ox = @player.x - 10 * $SIZE
     # @floorのすべてを描画
     Sprite.draw(@floor)
+    # @enemyのすべてを描画
+    Sprite.draw(@enemy)
     # @player単体で描画
     @player.draw
   end
