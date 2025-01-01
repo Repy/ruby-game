@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == 'opal'
-  require 'dxopal'
+if RUBY_PLATFORM == "opal"
+  require "dxopal"
   include DXOpal # rubocop:disable Style/MixinUsage
-  require_remote './Floor.rb'
-  require_remote './Player.rb'
+  require_remote "./Floor.rb"
+  require_remote "./Player.rb"
 else
   require "dxruby"
   require_relative "./Floor"
@@ -31,11 +31,11 @@ class World
       for x in 0...MAP[0].length() do
         case MAP[y][x]
         when 1
-          @floor.append(Floor.new(x*SIZE, y*SIZE, FloorType::PUSHBACK_FLOOR))
+          @floor.append(Floor.new(x * SIZE, y * SIZE, FloorType::PUSHBACK_FLOOR))
         when 2
-          @floor.append(Floor.new(x*SIZE, y*SIZE, FloorType::PASSAGE_FLOOR))
+          @floor.append(Floor.new(x * SIZE, y * SIZE, FloorType::PASSAGE_FLOOR))
         when 3
-          @enemy.append(Kuri.new(x*SIZE, y*SIZE))
+          @enemy.append(Kuri.new(x * SIZE, y * SIZE))
         end
       end
     end
@@ -47,14 +47,14 @@ class World
     # 左右移動
     @player.update_x()
     # 衝突確認
-    Sprite.check(@player, @floor, shot=:shot_x)
-    Sprite.check(@player, @enemy, shot=:shot_x)
+    Sprite.check(@player, @floor, :shot_x)
+    Sprite.check(@player, @enemy, :shot_x)
 
     # 上下移動
     @player.update_y()
     # 衝突確認
-    Sprite.check(@player, @floor, shot=:shot_y)
-    Sprite.check(@player, @enemy, shot=:shot_y)
+    Sprite.check(@player, @floor, :shot_y)
+    Sprite.check(@player, @enemy, :shot_y)
     # 接地中のみジャンプ
     if @player.floor && Input.key_down?(K_SPACE)
       @player.dy = -14
@@ -64,11 +64,11 @@ class World
     for e in @enemy do
       e.update_y()
     end
-    Sprite.check(@enemy, @floor, shot=:shot_y)
+    Sprite.check(@enemy, @floor, :shot_y)
     for e in @enemy do
       e.update_x()
     end
-    Sprite.check(@enemy, @floor, shot=:shot_x)
+    Sprite.check(@enemy, @floor, :shot_x)
   end
 
   # 1フレームごとに描画したい動作

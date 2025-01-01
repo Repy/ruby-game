@@ -24,9 +24,9 @@ class Floor < Sprite
 
   def initialize(x, y, floortype)
     if floortype == FloorType::PUSHBACK_FLOOR
-      super(x,y,@@image1)
+      super(x, y, @@image1)
     else
-      super(x,y,@@image2)
+      super(x, y, @@image2)
     end
     @floortype = floortype
   end
@@ -35,15 +35,18 @@ class Floor < Sprite
   end
 
   def action(direction)
-    if @floortype == FloorType::PUSHBACK_FLOOR
+    case @floortype
+    when FloorType::PUSHBACK_FLOOR
       return BlockAction::PUSHBACK
-    end
-    if @floortype == FloorType::PASSAGE_FLOOR
+    when FloorType::PASSAGE_FLOOR
       if direction == Direction::DOWN
         return BlockAction::PUSHBACK
+      else
+        return BlockAction::PASSAGE
       end
+    else
+      return BlockAction::PASSAGE
     end
-    return BlockAction::PASSAGE
   end
 
 end

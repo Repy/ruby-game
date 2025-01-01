@@ -2,7 +2,7 @@
 
 if RUBY_PLATFORM == "opal"
   require "dxopal"
-  include DXOpal
+  include DXOpal # rubocop:disable Style/MixinUsage
 else
   require "dxruby"
 end
@@ -12,17 +12,16 @@ class Player < Sprite
   # Playerの描画したいもの
   @@image = Image.new(30, 30, C_RED)
   @@dead = Image.new(30, 30, C_WHITE)
+
   attr_accessor :dy
-  @dy = 0
   attr_accessor :dx
-  @dx = 0
   attr_reader :floor
-  @floor = false
 
   def initialize(x, y)
     super(x, y, @@image)
     @dy = 0.0
     @dx = 0
+    @floor = false
   end
 
   def update_y()
@@ -60,7 +59,7 @@ class Player < Sprite
   end
 
   def shot_y(o)
-    if not self.check(o)
+    if ! self.check(o)
       puts "Player shot_y not check ${self.x,self.y}"
       return
     end

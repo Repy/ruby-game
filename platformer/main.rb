@@ -12,8 +12,8 @@ else
 end
 
 Window.fps = 45
-Window.width=WINDOW_WIDTH
-Window.height=WINDOW_HEIGHT
+Window.width = WINDOW_WIDTH
+Window.height = WINDOW_HEIGHT
 Window.bgcolor = C_BLACK
 world = World.new()
 world.start()
