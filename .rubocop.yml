@@ -1,8 +1,12 @@
+Layout/EndOfLine:
+  EnforcedStyle: lf
 Layout/LineLength:
   Max: 1000
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/NumericPredicate:
+  Enabled: false
+Style/ZeroLengthPredicate:
   Enabled: false
 Style/For:
   Enabled: false
@@ -39,4 +43,6 @@ Metrics/CyclomaticComplexity:
 Metrics/ClassLength:
   Enabled: false
 Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/ParameterLists:
   Enabled: false

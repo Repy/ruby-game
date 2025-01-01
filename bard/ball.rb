@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 if RUBY_PLATFORM == "opal"
   require "dxopal"
-  include DXOpal
+  include DXOpal # rubocop:disable Style/MixinUsage
 else
   require "./3.3/dxruby.so"
 end
@@ -41,7 +43,7 @@ class World
     # 新規ボール出現
     @count = (@count + 1) % @level
     if @count == 0
-      @balls << Ball.new(@width, @height, @width, rand(@height), -1, rand(-10..10)/10.0)
+      @balls << Ball.new(@width, @height, @width, rand(@height), -1, rand(-10..10) / 10.0)
     end
 
     # キー入力制御
@@ -118,7 +120,7 @@ class Ball < Sprite
   @height = 0
 
   def initialize(width, height, x, y, dx, dy)
-    super(x,y,@@image)
+    super(x, y, @@image)
 
     @dx = dx
     @dy = dy
@@ -141,5 +143,4 @@ class Ball < Sprite
       self.vanish()
     end
   end
-
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 if RUBY_PLATFORM == "opal"
   require "dxopal"
-  include DXOpal
+  include DXOpal # rubocop:disable Style/MixinUsage
 else
-  require "./3.3/dxruby.so"
+  require "dxruby"
 end
 
 # ゲームの世界
@@ -24,10 +26,10 @@ class World
   # ゲーム内容の初期化
   def start
     @balls = []
-    @balls << Ball.new(@width, @height,rand(@width),20, 10, 0)
-    @balls << Ball.new(@width, @height,rand(@width),50, 7, 0)
-    @balls << Ball.new(@width, @height,rand(@width),70, 5, 0)
-    @balls << Ball.new(@width, @height,rand(@width),100, 3, 0)
+    @balls << Ball.new(@width, @height, rand(@width), 20, 10, 0)
+    @balls << Ball.new(@width, @height, rand(@width), 50, 7, 0)
+    @balls << Ball.new(@width, @height, rand(@width), 70, 5, 0)
+    @balls << Ball.new(@width, @height, rand(@width), 100, 3, 0)
     @player = Player.new(@width, @height)
     @out = true
   end
@@ -76,7 +78,7 @@ class Player < Sprite
   def initialize(width, height)
     max_x = width - @@image.width
     max_y = height - @@image.width
-    super(max_x / 2,max_y,@@image)
+    super(max_x / 2, max_y, @@image)
 
     @dx = 0
     @width = max_x
@@ -92,7 +94,7 @@ class Player < Sprite
       @dx = -@dx
       self.x = 0
     end
-    @dx = @dx*0.90
+    @dx = @dx * 0.90
   end
 
   def dx(v)
@@ -111,7 +113,7 @@ class Ball < Sprite
   @height = 0
 
   def initialize(width, height, x, y, dx, dy)
-    super(x,y,@@image)
+    super(x, y, @@image)
 
     @dx = dx
     @dy = dy
@@ -136,5 +138,4 @@ class Ball < Sprite
     end
     @dy += 0.5
   end
-
 end
