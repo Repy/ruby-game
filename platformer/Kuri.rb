@@ -47,10 +47,12 @@ class Kuri < Sprite
     end
     self.y += @dy.to_i()
   end
+
   def update_x()
     if @dead >= 0
       return
     end
+
     self.x += @dx
   end
 
@@ -70,7 +72,7 @@ class Kuri < Sprite
 
   def shot_y(o)
     # 落下中に当たった かつ 前回の位置がブロックより上
-    if @dy > 0 and self.y + SIZE - @dy.to_i() <= o.y
+    if @dy > 0 && self.y + SIZE - @dy.to_i() <= o.y
       action = o.action(Direction::DOWN)
       if action == BlockAction::DEAD
         self.dead()
@@ -94,6 +96,7 @@ class Kuri < Sprite
       end
     end
   end
+
   def shot_x(o)
     if @dx > 0 # 右移動で当たった
       action = o.action(Direction::RIGHT)
@@ -115,5 +118,4 @@ class Kuri < Sprite
       end
     end
   end
-
 end

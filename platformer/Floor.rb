@@ -48,5 +48,4 @@ class Floor < Sprite
       return BlockAction::PASSAGE
     end
   end
-
 end

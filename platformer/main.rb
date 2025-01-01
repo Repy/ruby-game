@@ -4,11 +4,11 @@ if RUBY_PLATFORM == "opal"
   require "dxopal"
   include DXOpal # rubocop:disable Style/MixinUsage
   require_remote "./config.rb"
-  require_remote "./World.rb"
+  require_remote "./world.rb"
 else
   require "dxruby"
   require_relative "./config"
-  require_relative "./World"
+  require_relative "./world"
 end
 
 Window.fps = 45

@@ -3,13 +3,13 @@
 if RUBY_PLATFORM == "opal"
   require "dxopal"
   include DXOpal # rubocop:disable Style/MixinUsage
-  require_remote "./Floor.rb"
-  require_remote "./Player.rb"
+  require_remote "./floor.rb"
+  require_remote "./player.rb"
 else
   require "dxruby"
-  require_relative "./Floor"
-  require_relative "./Player"
-  require_relative "./Kuri"
+  require_relative "./floor"
+  require_relative "./player"
+  require_relative "./kuri"
 end
 
 # ゲームの世界
