@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 if RUBY_PLATFORM == "opal"
   require "dxopal"
-  include DXOpal
-  require "./types.rb"
+  include DXOpal # rubocop:disable Style/MixinUsage
+  require_remote "./types.rb"
 else
   require "dxruby"
   require_relative "./types"
@@ -15,8 +17,8 @@ end
 # 床の定義
 class Floor < Sprite
   # 床の繰り返しパターン
-  @@image1 = Image.new($SIZE, $SIZE, C_GREEN)
-  @@image2 = Image.new($SIZE, $SIZE, C_YELLOW)
+  @@image1 = Image.new(SIZE, SIZE, C_GREEN)
+  @@image2 = Image.new(SIZE, SIZE, C_YELLOW)
 
   @floortype = FloorType::PUSHBACK_FLOOR
 

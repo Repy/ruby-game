@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 if RUBY_PLATFORM == "opal"
   require "dxopal"
-  include DXOpal
+  include DXOpal # rubocop:disable Style/MixinUsage
   require_remote "./config.rb"
   require_remote "./World.rb"
 else
@@ -10,8 +12,8 @@ else
 end
 
 Window.fps = 45
-Window.width=$WINDOW_WIDTH
-Window.height=$WINDOW_HEIGHT
+Window.width=WINDOW_WIDTH
+Window.height=WINDOW_HEIGHT
 Window.bgcolor = C_BLACK
 world = World.new()
 world.start()

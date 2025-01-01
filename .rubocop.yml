@@ -1,6 +1,23 @@
 
-Style/Encoding:
+Style/NumericPredicate:
   Enabled: false
-
+Style/For:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false
+Style/DefWithParentheses:
+  Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
 Layout/LineLength:
   Max: 99

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 if RUBY_PLATFORM == "opal"
   require "dxopal"
-  include DXOpal
+  include DXOpal # rubocop:disable Style/MixinUsage
 else
   require "dxruby"
 end
@@ -37,11 +39,11 @@ class Kuri < Sprite
       return
     end
     @dy = @dy + 0.7
-    if @dy > $SIZE
-      @dy = $SIZE
+    if @dy > SIZE
+      @dy = SIZE
     end
-    if @dy < -$SIZE
-      @dy = -$SIZE
+    if @dy < -SIZE
+      @dy = -SIZE
     end
     self.y += @dy.to_i()
   end
@@ -68,18 +70,18 @@ class Kuri < Sprite
 
   def shot_y(o)
     # 落下中に当たった かつ 前回の位置がブロックより上
-    if @dy > 0 and self.y + $SIZE - @dy.to_i() <= o.y
+    if @dy > 0 and self.y + SIZE - @dy.to_i() <= o.y
       action = o.action(Direction::DOWN)
       if action == BlockAction::DEAD
         self.dead()
       end
       if action == BlockAction::PUSHBACK
         @dy = 0
-        self.y = o.y - $SIZE
+        self.y = o.y - SIZE
       end
       if action == BlockAction::BOUND
         @dy = -5
-        self.y = o.y - $SIZE
+        self.y = o.y - SIZE
       end
     elsif @dy < 0 # 上昇中に当たった
       action = o.action(Direction::UP)
@@ -88,7 +90,7 @@ class Kuri < Sprite
       end
       if action == BlockAction::PUSHBACK
         @dy = 0
-        self.y = o.y + $SIZE
+        self.y = o.y + SIZE
       end
     end
   end
@@ -100,7 +102,7 @@ class Kuri < Sprite
       end
       if action == BlockAction::PUSHBACK
         @dx = -@dx
-        self.x = o.x - $SIZE
+        self.x = o.x - SIZE
       end
     elsif @dx < 0 # 左移動で当たった
       action = o.action(Direction::LEFT)
@@ -109,7 +111,7 @@ class Kuri < Sprite
       end
       if action == BlockAction::PUSHBACK
         @dx = -@dx
-        self.x = o.x + $SIZE
+        self.x = o.x + SIZE
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if RUBY_PLATFORM == "opal"
   require "dxopal"
   include DXOpal
@@ -26,11 +28,11 @@ class Player < Sprite
   def update_y()
     @floor = false
     @dy = @dy + 0.7
-    if @dy > $SIZE
-      @dy = $SIZE
+    if @dy > SIZE
+      @dy = SIZE
     end
-    if @dy < -$SIZE
-      @dy = -$SIZE
+    if @dy < -SIZE
+      @dy = -SIZE
     end
     self.y += @dy.to_i()
   end
@@ -63,19 +65,19 @@ class Player < Sprite
       return
     end
     # 落下中に当たった かつ 前回の位置がブロックより上
-    if @dy > 0 and self.y + $SIZE - @dy.to_i() <= o.y
+    if @dy > 0 and self.y + SIZE - @dy.to_i() <= o.y
       action = o.action(Direction::DOWN)
       if action == BlockAction::DEAD
         self.image = @@dead
       end
       if action == BlockAction::PUSHBACK
         @dy = 0
-        self.y = o.y - $SIZE
+        self.y = o.y - SIZE
         @floor = true
       end
       if action == BlockAction::BOUND
         @dy = -5
-        self.y = o.y - $SIZE - 5
+        self.y = o.y - SIZE - 5
         @floor = true
       end
     elsif @dy < 0 # 上昇中に当たった
@@ -85,7 +87,7 @@ class Player < Sprite
       end
       if action == BlockAction::PUSHBACK
         @dy = 0
-        self.y = o.y + $SIZE
+        self.y = o.y + SIZE
       end
     end
   end
@@ -102,7 +104,7 @@ class Player < Sprite
       end
       if action == BlockAction::PUSHBACK
         @dx = 0
-        self.x = o.x - $SIZE
+        self.x = o.x - SIZE
       end
     end
     # 左移動で当たった
@@ -113,7 +115,7 @@ class Player < Sprite
       end
       if action == BlockAction::PUSHBACK
         @dx = 0
-        self.x = o.x + $SIZE
+        self.x = o.x + SIZE
       end
     end
   end

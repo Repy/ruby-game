@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BlockAction
   PUSHBACK = 1
   PASSAGE = 2
