@@ -4,7 +4,7 @@ if RUBY_PLATFORM == "opal"
   require "dxopal"
   include DXOpal # rubocop:disable Style/MixinUsage
 else
-  require "./3.3/dxruby.so"
+  require "dxruby"
 end
 
 # ゲームの世界
