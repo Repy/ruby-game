@@ -1,5 +1,5 @@
 GEM
-  remote: https://repy.github.io/ruby-dxruby-binary/
+  remote: https://repy.github.io/dxruby-binary/
   specs:
     dxruby (1.4.7)
 

@@ -59,10 +59,10 @@ class Player < Sprite
   end
 
   def shot_y(o)
-    if !self.check(o)
-      puts "Player shot_y not check ${self.x,self.y}"
+    if self.check(o).empty?()
       return
     end
+
     # 落下中に当たった かつ 前回の位置がブロックより上
     if @dy > 0 && self.y + SIZE - @dy.to_i() <= o.y
       action = o.action(Direction::DOWN)
@@ -92,7 +92,7 @@ class Player < Sprite
   end
 
   def shot_x(o)
-    if !self.check(o)
+    if self.check(o).empty?()
       return
     end
 

@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug program",
+            "name": "platformer",
             "type": "ruby_lsp",
             "request": "launch",
             "program": "ruby platformer/main.rb",
