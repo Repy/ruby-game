@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-else
-  require "dxruby"
-end
+require "dxruby"
 
 # プレーヤーの定義
 class Player < Sprite

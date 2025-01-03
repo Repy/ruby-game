@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-  require_remote "./types.rb"
-else
-  require "dxruby"
-  require_relative "./types"
-end
+require "dxruby"
+require_relative "./types"
+require_relative "./config"
 
 class FloorType
   PUSHBACK_FLOOR = 1

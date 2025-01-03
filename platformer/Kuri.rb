@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-else
-  require "dxruby"
-end
+require "dxruby"
+require_relative "./types"
+require_relative "./config"
 
 # 敵の定義
 class Kuri < Sprite

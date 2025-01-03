@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-  require_remote "ball.rb"
-else
-  require "dxruby"
-  require_relative "./ball"
-end
+require "dxruby"
+require_relative "./ball"
 
 Window.fps = 45
 Window.bgcolor = C_BLACK
+Window.create()
 world = World.new()
 world.start(20)
 Window.loop do

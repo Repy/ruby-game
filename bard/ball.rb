@@ -1,34 +1,30 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-else
-  require "dxruby"
-end
+require "dxruby"
 
 # ゲームの世界
 class World
-  @balls = []
-  @player = nil
-  @width = 640
-  @height = 400
-  @out = false
-  @count = 0
-  @level = 45
+  @@sound_bgm = Sound.new(File.join(__dir__, "bgm.wav"))
+  @@sound_dead = Sound.new(File.join(__dir__, "dead.wav"))
+
+  @@width = 640
+  @@height = 400
 
   def initialize
     @balls = []
-    @player = []
-    @width = 640
-    @height = 400
+    @player = nil
+    @count = 0
     @out = false
+    @level = 45
   end
 
   # ゲーム内容の初期化
   def start(level)
+    @@sound_bgm.stop()
+    @@sound_bgm.loop_count = -1
+    @@sound_bgm.play()
     @balls = []
-    @player = Player.new(@width, @height)
+    @player = Player.new(@@width, @@height)
     @out = true
     @count = 0
     @level = level.to_i
@@ -43,7 +39,7 @@ class World
     # 新規ボール出現
     @count = (@count + 1) % @level
     if @count == 0
-      @balls << Ball.new(@width, @height, @width, rand(@height), -1, rand(-10..10) / 10.0)
+      @balls << Ball.new(@@width, @@height, @@width, rand(@@height), -1, rand(-10..10) / 10.0)
     end
 
     # キー入力制御
@@ -61,6 +57,8 @@ class World
     # 衝突確認
     if @player.check(@balls).length > 0
       @out = false
+      @@sound_bgm.stop()
+      @@sound_dead.play()
     end
   end
 

@@ -1,15 +1,8 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-  require_remote "./config.rb"
-  require_remote "./world.rb"
-else
-  require "dxruby"
-  require_relative "./config"
-  require_relative "./world"
-end
+require "dxruby"
+require_relative "./config"
+require_relative "./world"
 
 Window.fps = 45
 Window.width = WINDOW_WIDTH

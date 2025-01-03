@@ -9,28 +9,27 @@ end
 
 # ゲームの世界
 class World
+  @@width = 640
+  @@height = 400
+
   @balls = []
   @player = nil
-  @width = 640
-  @height = 400
   @out = false
 
   def initialize
     @balls = []
     @player = []
-    @width = 640
-    @height = 400
     @out = false
   end
 
   # ゲーム内容の初期化
   def start
     @balls = []
-    @balls << Ball.new(@width, @height, rand(@width), 20, 10, 0)
-    @balls << Ball.new(@width, @height, rand(@width), 50, 7, 0)
-    @balls << Ball.new(@width, @height, rand(@width), 70, 5, 0)
-    @balls << Ball.new(@width, @height, rand(@width), 100, 3, 0)
-    @player = Player.new(@width, @height)
+    @balls << Ball.new(@@width, @@height, rand(@@width), 20, 10, 0)
+    @balls << Ball.new(@@width, @@height, rand(@@width), 50, 7, 0)
+    @balls << Ball.new(@@width, @@height, rand(@@width), 70, 5, 0)
+    @balls << Ball.new(@@width, @@height, rand(@@width), 100, 3, 0)
+    @player = Player.new(@@width, @@height)
     @out = true
   end
 

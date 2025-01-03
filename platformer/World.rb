@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
-if RUBY_PLATFORM == "opal"
-  require "dxopal"
-  include DXOpal # rubocop:disable Style/MixinUsage
-  require_remote "./floor.rb"
-  require_remote "./player.rb"
-else
-  require "dxruby"
-  require_relative "./floor"
-  require_relative "./player"
-  require_relative "./kuri"
-end
+require "dxruby"
+require_relative "./floor"
+require_relative "./player"
+require_relative "./kuri"
 
 # ゲームの世界
 class World
